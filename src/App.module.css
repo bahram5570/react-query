@@ -1,0 +1,42 @@
+.main {
+  padding: 20px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+}
+
+.btn button {
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background: #2b2b2b;
+  color: #ffffff;
+  padding: 0 25px;
+  margin: 0 20px;
+  cursor: pointer;
+}
+
+.btn button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.names {
+  border: 2px solid #a2a2a2;
+  border-radius: 10px;
+  margin: 30px 0;
+  padding: 20px;
+}
+
+.names div {
+  padding: 15px 0;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.names div:hover {
+  color: #ff0000;
+  font-weight: 900;
+}

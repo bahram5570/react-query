@@ -1,0 +1,28 @@
+.main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
+}
+
+.main span {
+  width: 50px;
+  height: 50px;
+  border: 10px solid #00ffff;
+  border-top: 10px solid transparent;
+  border-radius: 100%;
+  animation: loading linear infinite 1s;
+}
+
+@keyframes loading {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

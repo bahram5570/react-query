@@ -1,69 +1,38 @@
-import { useState, useEffect } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
 import styles from './App.module.css';
-import Post from './components/Post';
 import Spinner from './components/Spinner';
 
-const mainApi = async (page) => {
-  const response = await axios.get(
-    `https://jsonplaceholder.typicode.com/posts?_limit=5&_page=${page}`
-  );
-  return response.data;
+const BASE_URL = 'https://swapi.dev/api/people';
+
+const fetchPeople = async (url) => {
+  return await axios.get(`${url}`);
 };
 
 function App() {
-  const [page, setPage] = useState(1);
-  const [selected, setSelected] = useState(null);
+  const { data, isLoading, isFetching, fetchNextPage, hasNextPage } =
+    useInfiniteQuery(
+      ['infiniteQuery'],
+      ({ pageParam = BASE_URL }) => fetchPeople(pageParam),
+      { getNextPageParam: (lastPage) => lastPage.data.next || undefined }
+    );
 
-  const { data, isLoading } = useQuery(
-    ['main page', page],
-    () => mainApi(page),
-    { staleTime: 2000 }
-  );
-
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    if (page <= 8) {
-      const nextPage = page + 1;
-      queryClient.prefetchQuery(['main page', nextPage], () =>
-        mainApi(nextPage)
-      );
-    }
-  }, [page, queryClient]);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
+  if (isLoading) return <Spinner />;
 
   return (
     <div className={styles.main}>
-      <div className={styles.btn}>
-        <button onClick={() => setPage(page - 1)} disabled={page <= 1}>
-          Back
-        </button>
+      {data.pages.map((x, j) => (
+        <div className={styles.page} key={j}>
+          {x.data.results.map((y, i) => (
+            <p key={i}>{y.name}</p>
+          ))}
+        </div>
+      ))}
 
-        <h2>Page: {page}</h2>
-
-        <button onClick={() => setPage(page + 1)} disabled={page >= 20}>
-          Next
-        </button>
-      </div>
-
-      <div className={styles.names}>
-        {data.map((x) => (
-          <div
-            onClick={() => setSelected(x)}
-            className={styles.item}
-            key={x.id}
-          >
-            {x.id}. {x.title}
-          </div>
-        ))}
-      </div>
-
-      {selected && <Post post={selected} />}
+      <button onClick={() => fetchNextPage()} disabled={!hasNextPage}>
+        {!isFetching && 'Load more'}
+        {isFetching && 'Fetching...'}
+      </button>
     </div>
   );
 }

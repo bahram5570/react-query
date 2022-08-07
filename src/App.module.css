@@ -2,41 +2,28 @@
   padding: 20px;
 }
 
-.btn {
-  display: flex;
-  justify-content: center;
+.page {
+  padding: 5px 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 20px #00000055;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 
-.btn button {
+.main button {
   outline: none;
   border: none;
   border-radius: 5px;
-  background: #2b2b2b;
+  background: #000088;
   color: #ffffff;
-  padding: 0 25px;
-  margin: 0 20px;
+  font-size: 1.5rem;
+  padding: 5px 25px;
+  margin-bottom: 50px;
   cursor: pointer;
 }
 
-.btn button:disabled {
-  opacity: 0.5;
+.main button:disabled {
+  background: #00000088;
   cursor: not-allowed;
-}
-
-.names {
-  border: 2px solid #a2a2a2;
-  border-radius: 10px;
-  margin: 30px 0;
-  padding: 20px;
-}
-
-.names div {
-  padding: 15px 0;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.names div:hover {
-  color: #ff0000;
-  font-weight: 900;
 }

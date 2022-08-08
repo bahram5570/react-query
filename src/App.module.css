@@ -1,29 +1,24 @@
 .main {
+  padding: 100px 20px;
+}
+
+.main header {
+  background: #00ff0044;
   padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
-.page {
-  padding: 5px 20px;
-  margin-bottom: 30px;
-  box-shadow: 0 0 20px #00000055;
-  border-radius: 5px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-}
-
-.main button {
-  outline: none;
-  border: none;
-  border-radius: 5px;
-  background: #000088;
-  color: #ffffff;
+.main header a {
   font-size: 1.5rem;
-  padding: 5px 25px;
-  margin-bottom: 50px;
-  cursor: pointer;
+  margin-right: 30px;
+  text-decoration: none;
+  color: #000000aa;
 }
 
-.main button:disabled {
-  background: #00000088;
-  cursor: not-allowed;
+.main header a.selected {
+  color: #000000ff;
+  font-weight: bold;
 }
